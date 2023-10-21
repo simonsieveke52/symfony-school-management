@@ -1,0 +1,51 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+
+{% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+
+<table class="table table-stripped">
+    <header>
+        <th>Prof : </th>
+        <th>Mois : </th>
+        <th>Prix en Dh : </th>
+        <th>Date : </th>
+        <th></th>
+    </header>
+
+    <body>
+        {% for depayement in depayements %}
+        <tr>
+            <td>{{ depayement.prof.name }}</td>
+            <td>{{ depayement.month.name }}</td>
+            <td>{{ depayement.price }}</td>
+            <td>{{ depayement.createdAt| date("Y/m/d H:i:s") }}</td>
+            <td>
+                <a href="{{ path('admin_remove_depayement', {'id':depayement.id}) }}" class="btn btn-outline-danger btn-sm" onclick="handledelete()">
+                    <i class="fas fa-trash"></i>
+                    sup
+                </a>
+                <a href="{{ path('admin_edit_depayement', {'id':depayement.id}) }}" class="btn btn-outline-success btn-sm">
+                    <i class="fas fa-edit"></i>
+                    edit
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </body>
+
+
+<script type="text/javascript">
+    const handledelete = () =>{
+        alert("vous êtes sure de supprimer ce depayement !")
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bad Request{% endblock %}
+
+{% block body %}
+
+    <div class="container m-5 text-center w-100">
+    	
+    	<h1 class="text-danger">  {{ status_code }}
+           {{ status_text }} </h1>
+
+        <h3 class="m-5" >Oups ! votre requêtte  n'est pas bon !</h3>
+        
+        
+        <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+        
+
+        
+    </div>
+
+{% endblock %}

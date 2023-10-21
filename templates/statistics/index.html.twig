@@ -1,0 +1,14 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Statistics| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+  <div class="container">
+  	<h1>
+  		le nombre d'étudients : {{ stds | length }}
+  	</h1>
+  	<h1>
+  		le nombre de proffesseurs : {{ profs | length }}
+  	</h1>
+  </div>
+{% endblock %}

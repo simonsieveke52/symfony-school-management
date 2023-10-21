@@ -1,0 +1,21 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        transports:
+             async: 
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: email_notifications
+                        type: fanout
+                    queues:
+                        email_notifications: ~
+                      
+
+             failed: 'doctrine://default?queue_name=failed'
+
+        routing:
+             'App\Message\ResetPasswordEmailNotification': async
+             'App\Message\EmailNotification': async
+             

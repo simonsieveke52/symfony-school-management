@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<div>
+
+{{ form_start(depayementForm) }}
+
+      {{ form_row(depayementForm.month, {"attr":{"class":"form-control"}}) }}
+      {{ form_row(depayementForm.price, {"attr":{"class":"form-control"}}) }}
+
+  <div class="form-group">
+  	<button class="btn btn-outline-success">
+  		payer au prof
+  	</button>
+  </div>
+
+{{ form_end(depayementForm) }}
+   
+</div>
+</div>
+
+
+
+{% endblock %}
+

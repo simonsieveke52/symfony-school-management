@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Une Erreur de Serveur{% endblock %}
+
+{% block body %}
+
+    <div class="container m-5 text-center">
+    	
+    	<h1 class="text-danger">  {{ status_code }}
+           {{ status_text }} </h1>
+
+        <h3 class="m-5" >Oups ! une erreur est servenue, nous allons travailler sur ça. dit nous sur le problème.  !</h3>
+        
+        
+        <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+        
+
+        
+    </div>
+
+{% endblock %}

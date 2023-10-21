@@ -1,0 +1,44 @@
+{% extends 'prof/base.html.twig' %}
+
+{% block title %}NajmiAccademy.com| C72{% endblock %}
+
+{% block body %}
+ {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+ 
+ {% if profDepayement|length == 0 %}
+ 	<h3 class="text-center text-info border-bottom">
+ 		 Il n-a pas encore des revenues !
+ 	</h3>
+ {% else %}
+ 	<table class="table">
+ 	<header>
+ 		<th>Mois : </th>
+ 		<th>Prix en Dh: </th>
+ 		<th>Date : </th>
+    <th></th>
+ 	</header>
+ 	<body>
+ 		{% for item in profDepayement %}
+           <tr>
+           	<td> {{ item.month.name }} </td>
+           	<td> {{ item.price }} </td>
+           	<td> {{ item.createdAt | date }} </td>
+            <td> 
+             <a href="" class="text-center text-info">
+                <i class="fas fa-toggle-on"></i>
+             </a>
+            </td>
+           </tr>
+ 		{% endfor %}
+ 	</body>
+ </table>
+ {% endif %}
+
+{% endblock %}

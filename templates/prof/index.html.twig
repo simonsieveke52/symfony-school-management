@@ -1,0 +1,49 @@
+{% extends 'prof/base.html.twig' %}
+{% block title %}Prof| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+   {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+  <div class="container mt-3">
+	<h3 class="alert alert-primary"> Bienvenue Dans NajmiAccademy :</h3>
+ 	<div class="body-prof">
+ 		<ul>
+ 			
+ 		<li class="liste">
+           <a class="btn-link" href="{{ path('prof_add_course') }}">Ajouter un Cours</a>
+        </li>
+
+         <li class="liste">
+           <a class="btn-link" href="{{ path('prof_add_anounce') }}">Ajouter Une Annonce</a>
+        </li>
+        
+        <li class="liste">
+         <a class="btn-link" href="{{  path('prof_profile',{'id': app. user.id}) }}">Voir Vous Propres Cours et Annonces 
+         </a>
+        </li>
+
+        <li class="liste">
+           <a class="btn-link" href="{{ path('prof_synthese', {'id':app.user.id })}}">
+           	 Gérer les Notes des Etudiants
+           </a>
+        </li>  
+
+        <li class="liste">
+           <a class="btn-link" href="{{ path('prof_depayement', {'id':app.user.id })}}">
+             Consulter vos salaires !
+           </a>
+        </li>  
+
+        <li class="liste"> 
+            <a class="btn-link" href="{{ path('prof_update_password')}}">Modifier votre mot de Passe</a>
+        </li>
+          </ul>
+ 	</div>
+  </div>
+{% endblock %}

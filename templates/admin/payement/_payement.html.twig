@@ -1,0 +1,14 @@
+<tr>
+    <td>{{ payement.student.user.name }}</td>
+    <td>{{ payement.month.name }}</td>
+    <td>{{ payement.price }}</td>
+    <td>{{ payement.createdAt| date("Y/m/d H:i:s") }}</td>
+    <td>
+        <a href="" class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-trash"></i>
+        </a>
+        <a href="" class="btn btn-outline-success btn-sm">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>

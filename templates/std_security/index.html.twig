@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion au site| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+ {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+<div class="container mb-3 mt-3">
+
+    <div class="row">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+            <div class="bg-light py-3 px-3">
+                <h1 class="text-center">Connectez vous!</h1>
+
+      
+
+                <form action="{{ path('app_user_login') }}" method="post">
+                    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_user_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Adresse email ..." required autofocus value="{{ last_username }}"  />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" placeholder="Mot de passe ..." class="form-control" required>
+                    </div>
+                     <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                                       >
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success p-2">Connexion !</button>
+                        <a href="{{ path('inscription') }}" class="btn btn-link">Je n'ai pas encore de compte !</a>
+                    </div>
+                </form>
+            </div>
+            <a href="{{ path('app_forgotten_password') }}" class="btn btn-info w-100">Do you forget your password ?</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

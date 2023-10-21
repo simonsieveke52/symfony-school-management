@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <a class="navbar-brand" href="/">NajmiAccademy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/" data-toggle="tooltip" data-placement="top" title="Home"><i class="fas fa-home"></i>Home <span class="sr-only">(current)</span></a>
+      </li>
+     </ul>  
+
+      {% if app.user %}
+   {% cache "user-info" %}
+     <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle  align-top" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">           
+
+         <img src="{{  asset('uploads/users/' ~ app.user.picture)}}"
+          class="avatar avatar-mini" 
+         alt="{{ app.user.name }}" title="{{ app.user.name }}" style="border-radius:100px" width="90px" height="90px">
+        </a>
+    
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+
+             <a class="dropdown-item" href="{{ path('student_profile', {'id':
+           app.user.student.id }) }}">Mon compte</a>
+          <a class="dropdown-item" href="{{ path('student_note', {'id': app.user.student.id} )}}">Mes Notes</a>
+
+           <a class="dropdown-item" href="{{ path('student_courses_anounces', {'id': app.user.student.id} )}}">Mes Coures et Annonces 
+           </a>
+
+            <a class="dropdown-item" href="{{ path('std_payement', {'id': app.user.student.id} )}}">Mes Payements
+           </a>
+
+            <a class="dropdown-item" href="{{ path('student_update_password')}}">Editer Password</a>
+          <a class="dropdown-item" href="{{ path('app_user_logout') }}">Déconnexion</a>
+        </div>
+      </li>
+    </ul>
+{% endcache %}
+{% else %}
+ <ul class="navbar-nav ml-auto">
+   <li class="nav-item">
+     <a href="{{ path('app_user_login') }}" class="nav-link">Connexion</a>
+   </li>
+    <li class="nav-item">
+     <a href="{{ path('inscription') }}" class="nav-link btn btn-success">Inscription</a>
+   </li>
+ </ul>
+{% endif %}
+  </div>
+
+</nav>

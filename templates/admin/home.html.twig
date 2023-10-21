@@ -1,0 +1,135 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+{% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card bg-primary text-white mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-user-graduate fa-3x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title">{{ stats.users}} Etudiants</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-dark mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-chalkboard-teacher fa-3x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title">{{ stats.profs }} Proffesseurs</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-school fa-3x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title">{{ stats.classes }}Classes</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-book fa-3x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title">{{ stats.courses }}Cours</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <hr>
+<h1 class="text-center text-info bg-light"> Les mois de l'année : </h1>
+ <table class="table">
+        <header>
+            <tr>
+                <th>Nom du mois : </th>
+                <th> Outputs en Dh </th>
+                <th> Inputs en Dh</th>
+                <th> State </th>
+            </tr>
+        </header>
+        <body>
+            {% for month in months %}
+               <tr>
+                <td> {{month.monthName}} </td>
+                <td> {{month.outputs}} </td>
+                <td> {{month.inputs}} </td>
+                <td>
+                    {% if month.inputs - month.outputs > 0 %}
+                        <span class="text-success">
+                        + {{ month.inputs - month.outputs }} dhs
+                            <i class="fas fa-arrow-up"></i>
+                        </span>
+
+                    {% else %}
+                        <span class="text-danger">
+                        - {{ month.inputs - month.outputs }} dhs
+                            <i class="fas fa-arrow-down"></i>
+                        </span>
+                    {% endif %}
+                </td>
+               </tr>
+            {% endfor %}
+        </body>
+      </table>
+<h1 class="text-center text-info bg-light"> Les classes de l'année : </h1>
+
+  <table class="table">
+        <header>
+            <tr>
+                <th>Nom de la classe : </th>
+                <th> Nombre total d'étudiants :  </th>
+                <th>  Nombre total de pros :</th>
+                <th> nombre des étudiants payé ! </th>
+                <th> nombre des profs depayé ! </th>
+
+            </tr>
+        </header>
+        <body>
+            {% for classe in classes %}
+               <tr>
+                <td> {{classe.classeName}} </td>
+                <td> {{classe.stdNumbers}} </td>
+                <td> {{classe.profNumbers}} </td>
+                <td> {{ classe.payedStudents|length }} </td>
+                <td> {{ classe.depayedProfs|length }} </td>
+               
+               </tr>
+            {% endfor %}
+        </body>
+      </table>
+
+{% endblock %}

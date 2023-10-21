@@ -1,0 +1,113 @@
+{% extends 'prof/base.html.twig' %}
+{% block title %}Profile| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+   {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+
+  <div class="Profile m-4 ">
+    <h3 class="text-primary" ><i class="fas fa-users"></i>Mes Classes : </h3>
+    {% if prof.classes %}
+  	<table class="table">
+  		<thead>
+  			<th>Nom de la classe : </th>
+  			<th>Nombre d'étudiants : </th>
+  		</thead>
+  		<tbody>
+  			{% for classe in prof.classes %}
+  				<tr>
+  			    <td> 
+              {{ classe.name }}
+            </td>
+            <td> 
+              {{ classe.students | length }}
+           </td>  			       
+  		    </tr>
+  		  {% endfor %}
+  		</tbody>
+  	</table>	
+    {% else %}
+      <h3> Le group administratif n'a pas encore précisé vos propres classes ! </h3>
+    {% endif %}
+    
+    <div class="container" >
+  
+      <section style="border-left: 1px solid brown;padding: 5px; ">
+          <h3 class="text-primary"> <i class="fas fa-book"></i> Mes cours </h3>
+    
+        {% for course in prof.courses %}
+        <div class="" style="border-bottom: 1px solid brown;">
+                <h3> {{ course.title }}</h3>
+           <p class="text-muted text-italic" style="margin:5px;" >
+              <small>
+               <i class="fas fa-clock"></i> à
+                {{ course.createdAt | date}}
+              </small>
+            </p> 
+               <p class="text-center" >
+                <img src="{{  asset('uploads/brochures/' ~ course.picture)}}"
+                width="250px", height="320px" />
+              </p>
+
+              <div>{{ course.content }}</div>
+              
+              <p>
+                {% if course.brochureFilename %}
+                <a href="{{ asset('uploads/brochures/' ~ course.brochureFilename) }}">
+                  View Course (PDF)</a>
+                {% endif %}
+              </p>
+           <div class="text-center bg-light">
+              <a href="{{ path('prof_edit_course' , {'id': course.id})}}"
+              class="btn">
+                 <i class="fas fa-edit"></i>
+              </a>
+              <a href="{{ path('prof_remove_course' , {'id': course.id})}}"
+              class="btn ">
+                <i class="fas fa-trash"></i>
+              </a>
+           </div>
+         </div> 
+        {% endfor %}
+      </section>
+
+      <section style="border-left: 1px solid brown;">
+          <h3 class="text-primary" > <i class="fas fa-bullhorn"></i> Mes anonnces :  </h3>
+
+        {% for anounce in prof.anounces %}
+          <div class="anounce" style="border-bottom: 1px solid brown; padding: 5px;">
+                <h4> {{ anounce.title }}</h4>
+                <p class="text-muted text-italic" style="margin:5px;" >
+                 <small>
+                    <i class="fas fa-clock"></i> à
+                    {{ anounce.createdAt | date}}
+                 </small>
+                 pour la classe : {{ anounce.classe.name }}
+                </p>   
+                <div>{{ anounce.content }}</div>
+
+                <div class="text-center bg-light">
+              <a href="{{ path('prof_edit_anounce' , {'id': anounce.id})}}"
+              class="btn">
+                 <i class="fas fa-edit"></i>
+              </a>
+              <a href="{{ path('prof_remove_anounce' , {'id': anounce.id})}}"
+              class="btn ">
+                <i class="fas fa-trash"></i>
+              </a>
+           </div>
+         </div> 
+        {% endfor %}
+      </section>
+    </div>
+
+    
+   
+</div>
+{% endblock %}

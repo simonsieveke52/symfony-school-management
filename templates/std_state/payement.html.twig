@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Payements| NajmiAccademy.com{% endblock %}
+
+
+
+{% block body %}
+ {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+
+{% set var = false %}
+
+<div class="months">
+  <table class="table">
+    <header>
+      <th>Month#id</th>
+      <th>Nom : </th>
+      <th>payé :</th>
+      <th>payed At :</th>    
+      <th>prix :</th>    
+      <th></th>
+    </header>
+    <body>
+      {% for month in months %}
+        <tr>
+         <td> {{ month.id }} </td>
+         <td> {{ month.name }} </td>
+
+        {% if month.payements|length > 0 %}
+
+         {% for payement in month.payements %}
+
+             {% if payement.student.id == id %}
+               {% set var = true %}
+              <td class="text-success"> <i class="fas fa-toggle-on"></i> </td>
+              <td> {{ payement.createdAt|date("Y/m/d - H:m:s") }} </td>
+              <td> {{ payement.price }} </td>
+              <td> <a href="{{ path('student_edit_payement', {'id':payement.id}) }}" class="btn btn-info"> edit</a> </td>
+             {% endif %}
+
+         {% endfor %}
+
+
+         {% if var == false %}
+                <td class="text-danger"> <i class="fas fa-toggle-off"></i> </td>
+              <td> ---- </td>
+              <td> ---- </td>
+              <td> <a href="{{ path('student_add_payement', {'id':month.id}) }}" class="btn btn-success"> pay</a> </td>
+         {% endif %}
+
+
+       {% else %}
+        
+          <td class="text-danger"> <i class="fas fa-toggle-off"></i> </td>
+              <td> ---- </td>
+              <td> ---- </td>
+              <td> <a href="{{ path('student_add_payement', {'id':month.id}) }}" class="btn btn-success"> pay</a> </td>
+       
+       {% endif %}
+        </tr>
+      {% endfor %}
+
+    </body>
+  </table> 
+</div>
+
+{% endblock %}

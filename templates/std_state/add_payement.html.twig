@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Add Payement| NajmiAccademy.com{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+{{ form_start(payementForm) }}
+
+      {{ form_row(payementForm.price, {"attr":{"class":"form-control","placeholder":"entrz le prix  du mois !"}}) }}
+
+  <div class="form-group">
+  	<button class="btn btn-outline-success">
+  		payer mon mois
+  	</button>
+  </div>
+
+{{ form_end(payementForm) }}
+  
+</div>
+{% endblock %}

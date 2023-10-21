@@ -1,0 +1,47 @@
+{% extends 'prof/base.html.twig' %}
+{% block title %}Prof| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+
+	<div class="stds">
+  {% for classe in prof.classes %}
+      <h3> les étudiants de : {{ classe.name }}</h3>
+       <table class="table table-striped w-100">
+      <thead>
+        <th>#ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>C.I.N</th>
+        <th>Filière</th>
+        <th>Moyen</th>
+        <th></th>
+      </thead>
+      <tbody>
+       {% for std in classe.students %}
+         {% if std.profile.state == "ACCEPTED"%}
+           <tr>
+            <td> {{ std.id }}</td>
+            <td> <img src="{{  asset('uploads/users/' ~ std.user.picture)}}" style="height:48px; width:48px;" /></td>
+            <td> {{ std.user.name }}</td>
+            <td> {{ std.stdperinfo.cin }}</td>
+            <td> {{ std.stdchoice.bactype }}</td>
+            <td>
+                 {% for note in std.notes %}
+                    {% if note.prof == app.user %}                    
+                        {{ note.note }}                         
+                    {% endif %}
+                 {% endfor %} 
+            </td>
+            <td> 
+                <a href=" {{ path('prof_add_note',{'id':std.id}) }} " class="btn btn-success">
+                     <i class="far fa-edit"></i> 
+                </a>  
+           </td>
+          </tr>
+        {% endif %}
+       {% endfor %}
+       </tbody>
+</table>
+  {% endfor %}
+	</div>
+{% endblock %}

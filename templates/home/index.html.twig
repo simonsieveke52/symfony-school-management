@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home| NajmiAccademy.com{% endblock %}
+
+
+{% block body %}
+   {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+
+
+{% cache "home-header" %}
+  <div class="me">
+      <p class="big-title text-center">Comprendre le Monde, Construire l'avenir ! </p>
+      <p class="btn-started">
+         <a href="{{path('inscription')}}" class="btn btn-success"> Get started !</a>  
+      </p>
+      <p class="btn-teacher">
+           <a href="{{ path('app_prof_login')}}" class="btn btn-warning">Je suis  enseignant !</a> 
+      </p>
+  </div>
+{% endcache %}
+  <div class="cards">
+
+ <div class="card reveal">
+  <span style="color:skyblue; background-color: #f0ffff;" class="text-center">
+    <i class="fas fa-user-graduate fa-7x "></i>
+</span>
+  <div class="card-body bg-info text-light">
+     <h4 class="card-title" style="text-align: center; text-decoration: underline;"> professeurs certifiés</h4>
+    <p class="card-text">
+     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+     tempor incididunt ut labore et dolore magna aliqua.
+     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+     consequat. 
+    </p>
+  </div>
+</div>
+
+<div class="card reveal">
+  <span style="color:#5f9ea0; background-color: #7fff00;" class="text-center">
+    <i class="fas fa-chalkboard-teacher fa-7x"></i>
+</span>
+  <div class="card-body bg-success text-light">
+     <h4 class="card-title" style="text-align: center; text-decoration: underline;"> éducation spéciale</h4>
+    <p class="card-text">
+     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+     tempor incididunt ut labore et dolore magna aliqua.
+     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+     consequat. 
+    </p>
+  </div>
+</div>
+
+<div class="card reveal">
+  <span style="color:#191970; background-color: #778899;" class="text-center">
+    <i class="fas fa-futbol fa-7x"></i>
+</span>
+  <div class="card-body bg-secondary text-light">
+     <h4 class="card-title" style="text-align: center; text-decoration: underline;"> clubs de sport</h4>
+    <p class="card-text">
+     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+     tempor incididunt ut labore et dolore magna aliqua.
+     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+     consequat. 
+    </p>
+  </div>
+</div>
+
+</div>
+</div>
+
+
+{% endblock %}
+
+

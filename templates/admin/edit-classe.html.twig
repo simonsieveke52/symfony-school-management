@@ -1,0 +1,14 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Edit| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+{% for item in app.flashes('message') %}
+   <div class="alert alert-secondary">
+       {{ item }}
+   </div>
+ {% endfor %}
+  <div class="container">
+  	{{ form(classForm)}}
+  </div>
+  
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}ClassesiAccademy.com{% endblock %}
+
+{% block body %}
+  {% for item in app.flashes('message') %}
+   <div class="alert alert-secondary">
+       {{ item }}
+   </div>
+ {% endfor %}
+ 
+  <div class="container">
+  	<div class="container">
+  		<nav class="navbar bg-success">
+  			<ul class="navbar-nav">
+  				<li class="navbar-item">
+  					<a href=" {{ path('admin_add_class') }} " class="btn btn-success">
+  					  Class<i class="fas fa-plus"></i>
+  					</a>
+  				</li>
+  			</ul>
+  		</nav>
+  	</div>
+  	<table class="table">
+  		<thead>
+  			<th>Classe ID</th>
+  		    <th>Classe Name</th>
+  		    <th> Profs Number</th>
+  		    <th> Students Number </th>
+  		    <th></th>
+  		</thead>
+  		<tbody>
+  			{%  for classe in classes %}
+  			 <tr>
+  			   <td>{{ classe.id }}</td>
+  	           <td> {{ classe.name }}</td>  	           
+  	           <td>{{ classe.profs | length }}</td>
+  	           <td>{{ classe.students | length }} </td>
+  	           <td>
+  	            	<a href=" {{ path('admin_edit_class', {'id': classe.id})}} " class="btn btn-warning"> <i class="fas fa-edit"></i> </a>
+  	            	<a href="{{ path('admin_remove_class', {'id': classe.id})}}" class="btn btn-danger"> <i class="fas fa-trash"></i> </a>
+  	            </td>
+             </tr>
+           {% endfor %}
+  		</tbody>
+  	</table>
+   
+      {{ knp_pagination_render(classes) }}
+   
+  	 
+  </div>
+
+
+{% endblock %}

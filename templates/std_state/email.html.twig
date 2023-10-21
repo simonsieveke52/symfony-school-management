@@ -1,0 +1,26 @@
+<section>
+	<div>
+		<h4 style="padding-left:10px;color:blue;">Hello {{ user.name }},</h4>
+		<p style="font-familly:cursive; font-size:bold;">
+			Merci d'avoir créé un compte chez nous! Avant de commencer nous avons juste besoin de confirmer qu'il s'agit bien de toi.
+		</p>
+		<p style="font-size:bold; color:teal; text-align:center; ">
+			Clique sur le lien ci-dessous pour vérifier ton adress e-mail
+		</p>
+		<p>
+			<a href="{{ absolute_url( path('student_confirm_email',{'token':token})) }}"
+               style="
+                text-decoration:none;
+                background-color: darkorange;
+                border-radius: 30px;
+                translation: 0.5s;
+                padding:20px;
+                text-align:center;
+                margin-left:100px;
+                margin-top:50px;
+                font-size:bold;
+               " 
+			>Vérifier l'adress email</a>
+		</p>
+	</div>
+</section>

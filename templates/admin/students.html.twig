@@ -1,0 +1,101 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Students| NajmiAccademy.com{% endblock %}
+
+{% block body%}
+{% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+ 
+      <h1>
+        Les étudiants 
+      </h1>
+      <table class="table">
+        <thead>
+        <th></th>
+        <th> Name</th>
+        <th>Email</th>
+        <th>Etat</th>
+        <th> Bac Suité </th>
+        <th> Moyen de 1ère Bac : </th>
+        <th>note</th>       
+        <th></th>
+        </thead>
+        <tbody>
+
+      {% for item in students %}
+
+        <tr>
+        
+          
+           <td> <img src="{{  asset('uploads/users/' ~ item.user.picture)}}" width="80px" height="80px" /></td>
+           <td> {{ item.user.name}} </td>
+           <td>{{ item.user.email }}</td>
+           <td>
+
+            {% if item.profile.state  == "REJECTED" %}
+             <span style="background-color: red; 
+             font-weight: bold; padding: 3px;
+             "> {{ item.profile.state }}</span>
+            {% elseif item.profile.state  == "ACCEPTED" %}
+              <span style="background-color: green;
+               font-weight: bold; padding: 3px;">
+                {{ item.profile.state }}
+              </span>
+            {% else %}
+               <span style="background-color: orange;
+                      font-weight: bold; padding: 3px;
+               "> {{ item.profile.state }}</span>
+            {% endif %}
+
+          </td>
+           
+
+           <td>  
+                  {% if   item.stdchoice %}
+                     {{ item.stdchoice.bactype }}
+                  {% else %}
+                     NOT DEFINED
+                  {% endif %} 
+           </td>
+
+           <td>   
+                  {% if   item.stdcv %} 
+                    {{ item.stdcv.moyen}}
+                  {% else %} 
+                     NOT DEFINED
+                  {% endif %}  
+            </td>
+
+           <td>  {{ item.profile.note }} </td>
+
+           <td>
+            <a href=" {{ path('admin_delete_student', { 'id': item.id }) }} " 
+            class="btn btn-danger sm" id="js-action" 
+            onClick="deleteUser()" 
+            ><i class="fas fa-trash"></i></a>
+            <a href=" {{ path('admin_edit_profile_student', {'id': item.id })}} " class="btn btn-warning sm"><i class="fas fa-edit"></i></a>
+            <a href="{{ path('student_profile', {'id': item.id }) }}"
+            class="btn btn-primary sm"><i class="fas fa-eye"></i></a>
+           </td>
+         </tr> 
+      {% endfor %}
+</tbody>
+
+      </table>
+    {{ knp_pagination_render(students) }}
+  {% endblock %}
+  {% block javascripts %}
+     <script type="text/javascript">
+
+     function deleteUser() {
+       alert("Are you sure that you want to remove that user !");
+     }
+        const btn = document.getElementById('js-action').addEventListener('click', deleteUser);
+     </script>
+  {% endblock %}

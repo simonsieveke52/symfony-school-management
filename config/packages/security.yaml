@@ -1,0 +1,57 @@
+security:
+
+    role_hierarchy:
+        ROLE_PROF: ROLE_USER
+        ROLE_ADMIN: ROLE_PROF
+    encoders:
+       App\Entity\User:
+          algorithm: auto
+
+       App\Entity\Prof:
+          algorithm: auto
+    providers:
+        app_prof_provider:
+          entity: 
+            class:  App\Entity\Prof
+            property: email
+        app_user_provider:
+          entity: 
+            class:  App\Entity\User
+            property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        prof:
+            pattern: ^/prof
+            anonymous: true
+            provider:
+                app_prof_provider
+            form_login:
+                login_path: app_prof_login
+                check_path: app_prof_login
+            logout: 
+                path: app_prof_logout
+                target: prof
+        student:
+            anonymous: true
+            provider:
+                app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormUserAuthenticator
+            logout:
+                path: app_user_logout
+                
+        main:
+            pattern: ^/admin
+            anonymous: true
+
+    access_control:
+        - { path: ^/prof/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/prof, roles: ROLE_PROF}
+        - { path: ^/student/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/student/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/student, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/admin, roles: ROLE_ADMIN }
+      

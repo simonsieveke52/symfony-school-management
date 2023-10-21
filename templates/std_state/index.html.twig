@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Profile| NajmiAccademy.com{% endblock %}
+
+
+
+{% block body %}
+ {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+
+    <div class="profile">
+    {% cache "user-per-info" %}
+    	<div class="info-std">
+        <a href="{{ path('inscription_edit', {'id': user.id}) }}"
+           class="btn btn-small btn-outline-success ml-auto">
+           <i class="fas fa-edit"></i>
+
+        </a>
+        <span class="text-muted text-italic text-small ml-auto" > vous devez vérifier votre email ! </span>
+        {#% cache "img" %#}
+          <p class="text-center" > 
+            <img src="{{  asset('uploads/users/' ~ user.picture)}}" class="img-std"/>
+          </p>
+        {#% endcache %#}
+        <p class="user" >{{ user.name }} </p>
+        <p class="user"> {{ user.email }} </p>		
+      </div>
+    {% endcache %}
+    <div class="profile-body">
+      <div>
+        <div class="info-per" > 
+       <h6 class="text-danger"> Information Perssonnelles : </h6>
+        {% if not  stdInfo.id is defined %}
+          <a href="{{ path('student_add_info')}}" class="btn btn-primary ml-auto">        
+            <i class="fas fa-plus"></i>
+          </a>
+        {% endif %}
+        {% if stdInfo.id is defined %}
+
+            
+           <a href="{{ path('student_edit_info',{'id':stdInfo.id})}}" 
+           class="btn ml-auto">        
+            <i class="fas fa-edit"></i>
+          </a>
+        
+            <p>Date de Naissance : <strong>{{ stdInfo.age | date('m/d/Y')}}</strong></p>
+            <p>C.I.N : <strong> {{ stdInfo.cin }}</strong></p>
+            <p>Sexe :  <strong> {{ stdInfo.gendre }}</strong></p>         
+            <p>Ville : <strong> {{ stdInfo.city }}</strong></p>
+            <p>Tél :   <strong> {{ stdInfo.phone }}</strong></p>
+          </div>
+        {% endif %}
+    </div>
+
+    <div class="bac-info">
+    	<h6 class="text-danger">Année de Premier Bac :  </h6>
+
+      {% if stdInfo %}
+         <a href="{{ path('cv_student', {'id': stdInfo.id}) }}"
+         class="btn btn-small  ml-auto">
+           <i class="fas fa-edit"></i>
+        </a>
+      {% else %}
+        <h6>Remplir les information sperssonnelles pour que vous pouvez remplir ces informations ! </h6>
+      {% endif %}
+      {% if stdCv.id is defined %}
+    			  <p> ID de dossier :   <strong>   {{ stdCv.id }} </strong> </p>
+    			  <p> Ville d'étude :   <strong>   {{ stdCv.city }} </strong>  </p>        
+            <p> Lycée d'étude :   <strong>  {{ stdCv.school }} </strong> </p>
+    			  <p> Année :    <strong>  {{ stdCv.year | date('m/d/Y')}} </strong> </p>
+    			  <p> Moyenne Générale :<strong> {{ stdCv.moyen }}</strong> </p>
+       {% endif %}
+    </div>
+  </div>
+    <div class="text-center text-primary">
+      <h6>Votre Choix de cette Année est : 
+       <span class="text-muted text-italic text-success">
+      {% if stdChoice.bactype is defined %}   	     
+         {{stdChoice.bactype}}             
+      {% else %}
+        NOT DEFINED             
+      {% endif %}
+    </span>
+     {% if user %}
+        <a href="{{ path('choice_student', {'id': user.id}) }}"
+        class="btn btn-small  ml-auto">
+          <i class="fas fa-edit"></i>
+        </a>
+      {% endif %}
+     </h6>
+     
+    </div>
+
+   <div class="block">
+   	   <h3 class="alert alert-secondary">
+   	   	L'état de votre demanede :
+        {% if stdProfile.id is defined %} 
+        <span style="text-decoration:underline;">
+              {{ stdProfile.state }} 
+        </span>
+   	 
+
+       {% else %}
+        NOT DEFINED 
+    {% endif %}
+   	   </h3>
+   </div>
+ </div>
+
+{% endblock %}
+
+      

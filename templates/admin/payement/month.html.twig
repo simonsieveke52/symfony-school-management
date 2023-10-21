@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+
+ {{ form_start(monthForm) }}
+ 
+  {{ form_row(monthForm.name, {"attr":{"class":"form-control"}}) }}
+
+  {{ form_row(monthForm.outputs, {"attr":{"class":"form-control"}}) }}
+
+  {{ form_row(monthForm.inputs, {"attr":{"class":"form-control"}}) }}
+
+ <div class="form-group">
+ 	<button class="btn btn-primary" type="submit">
+          
+ 		{% if isNew  %}
+ 			Ajouter ce Moins !
+ 		{% else %}
+ 			Enregistrer Les Modifications
+  		{% endif %}
+ 		
+ 	</button>
+ </div>
+ {{ form_end(monthForm) }}
+
+
+
+{% endblock %}

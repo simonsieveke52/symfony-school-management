@@ -1,0 +1,40 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Notes| NajmiAccademy.com{% endblock %}
+
+{% block body %}
+ {% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+{% endfor %}
+{% cache "user-notes" %}
+<div class="container">
+      <table class="table"> 
+      	<thead>
+      		<th>Matière : </th>
+      		<th> Note : </th>
+      	</thead>
+      	<tbody>
+      		{% for note in notes %}
+                <tr>
+                	<td> {{ note.matter}} </td>
+                	<td> {{ note.note }} </td>
+                </tr>
+      		{% endfor %}
+      		<tr>
+      			<td colspan="2" class="text-center">
+      				la moyen :
+      				{{ total | format_number }}
+      			</td>
+      		</tr>
+      	</tbody>
+      </table>
+</div>
+{% endcache %}
+{% endblock %}
